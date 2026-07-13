@@ -1447,6 +1447,12 @@ body.modal-open { overflow: hidden; }
         </div>
       </div>
       <div data-reveal style="--reveal-delay: 360ms">
+        <div class="stat-card stat-card--red tilt-card">
+          <div class="stat-card__row"><span class="stat-card__value">Top 7%</span></div>
+          <span class="stat-card__label">TryHackMe global &middot; 84 rooms</span>
+        </div>
+      </div>
+      <div data-reveal style="--reveal-delay: 480ms">
         <div class="stat-card stat-card--neutral tilt-card">
           <div class="stat-card__row"><span class="stat-card__value">1</span><span class="stat-card__suffix">st</span></div>
           <span class="stat-card__label">C Div League 3 &middot; 2024</span>
@@ -1701,7 +1707,8 @@ body.modal-open { overflow: hidden; }
           <div class="op-card__body">
             Hands-on rooms across networking, Linux, and security landscapes — building the attacker's-eye view that
             defensive coursework alone can't teach.
-            <div class="op-card__cta"><a href="https://tryhackme.com/p/Jadonho0410" class="btn btn--outline btn--red btn--sm">tryhackme.com/p/Jadonho0410 &#8594;</a></div>
+            <div class="op-card__meta">&gt; top 7% global &middot; 84 rooms &middot; 13 badges &middot; [0x8] HACKER</div>
+            <div class="op-card__cta"><a href="https://tryhackme.com/p/Jadonho0410" class="btn btn--outline btn--red btn--sm">verify on tryhackme &#8594;</a></div>
           </div>
         </article>
       </div>
@@ -2105,14 +2112,14 @@ window.__PDFS = {"certs/THM-GECER3GFMZ.pdf": "JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC
       div.textContent = line;
       linesEl.appendChild(div);
       i++;
-      setTimeout(addLine, 260);
+      setTimeout(addLine, 235);
     }
 
     screen.addEventListener('click', finish);
     window.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === 'Escape') finish();
     });
-    setTimeout(addLine, 260);
+    setTimeout(addLine, 235);
   }
 
   /* ---------------------------------------------------------------------
@@ -2785,7 +2792,7 @@ window.__PDFS = {"certs/THM-GECER3GFMZ.pdf": "JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC
       projects: function () {
         print([
           { text: 'OP // LOCAL_LLM   llama3 (8B) via ollama — traced RAM 38% → 90% under load', cls: 'info' },
-          { text: 'OP // LAB_GRIND   64+ hrs on TryHackMe', cls: 'info' },
+          { text: 'OP // LAB_GRIND   64+ hrs on TryHackMe — top 7% global, 84 rooms', cls: 'info' },
           { text: 'OBJECTIVE         offensive security track — in progress', cls: 'warn' },
           { text: 'tip: goto red-team — open the LOCAL_LLM case file for the evidence', cls: 'dim' },
         ]);
@@ -2849,8 +2856,17 @@ window.__PDFS = {"certs/THM-GECER3GFMZ.pdf": "JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC
       exit: function () {
         print([{ text: 'nice try. this session stays open until the offer letter arrives.', cls: 'warn' }]);
       },
-      tryhackme: function () { COMMANDS.contact(); },
-      thm: function () { COMMANDS.contact(); },
+      thm: function () {
+        print([
+          { text: 'tryhackme.com/p/Jadonho0410 — live profile', cls: 'dim' },
+          { text: 'rank      top 7% worldwide (#159,331)', cls: 'ok' },
+          { text: 'rooms     84 completed', cls: 'info' },
+          { text: 'badges    13', cls: 'info' },
+          { text: 'level     [0x8] HACKER', cls: 'info' },
+          { text: 'hours     64+ across Pre-Security + Cyber Security 101', cls: 'info' },
+        ]);
+      },
+      tryhackme: function () { COMMANDS.thm(); },
       email: function () { COMMANDS.contact(); },
       credits: function () {
         print([
@@ -2932,7 +2948,12 @@ window.__PDFS = {"certs/THM-GECER3GFMZ.pdf": "JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC
         var cmd = 'whoami';
         var i = 0;
         function typeChar() {
-          if (userTouched) { input.value = ''; syncHasText(); return; }
+          if (userTouched) {
+            // Only clear if the input still holds OUR demo text — never wipe
+            // something the visitor has started typing.
+            if (input.value === cmd.slice(0, i)) { input.value = ''; syncHasText(); }
+            return;
+          }
           input.value = cmd.slice(0, ++i);
           syncHasText();
           if (i < cmd.length) setTimeout(typeChar, reduced ? 0 : 95);
@@ -3305,7 +3326,7 @@ window.__PDFS = {"certs/THM-GECER3GFMZ.pdf": "JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC
       { text: '> I could actually see myself doing.', color: 'var(--text-2)' },
       { text: ' ', color: 'var(--text-3)' },
       { text: '[ TRACE COMPLETE — NEXT HOP: CYBERSECURITY & DIGITAL FORENSICS ]', color: 'var(--green-500)' }
-    ], 130, 0.6); // don't start the origin log until it's properly on screen
+    ], 195, 0.6); // don't start the origin log until it's properly on screen
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll);
   else initAll();
