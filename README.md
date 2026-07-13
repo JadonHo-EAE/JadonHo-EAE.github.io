@@ -1,6 +1,6 @@
 # EAE 2026 Portfolio — Jadon Ho Cheok Chun
 
-**Live site:** https://ilikewanwan.github.io
+**Live site:** https://JadonHo-EAE.github.io
 
 My application portfolio for the Diploma in Cybersecurity & Digital Forensics
 (Poly EAE 2026). Built as a single self-contained HTML file — all fonts,
