@@ -337,6 +337,7 @@ h1, h2, h3, p { margin: 0; }
 .timeline-item__year { font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: var(--ls-label); color: var(--tl-accent); }
 .timeline-item__title { font-family: var(--font-mono); font-size: var(--fs-h3); font-weight: 600; color: var(--text-1); }
 .timeline-item__text { font-family: var(--font-sans); font-size: var(--fs-small); color: var(--text-2); line-height: 1.6; }
+.timeline-item__note { color: var(--text-3); font-style: italic; }
 .timeline-item--blue { --tl-accent: var(--blue-500); --tl-glow: var(--dot-glow-blue); }
 .timeline-item--red { --tl-accent: var(--red-500); --tl-glow: var(--dot-glow-red); }
 .timeline-item--green { --tl-accent: var(--green-500); --tl-glow: var(--dot-glow-green); }
@@ -1379,7 +1380,7 @@ body.modal-open { overflow: hidden; }
 <!-- Nav -->
 <nav class="nav">
   <div class="nav__inner">
-    <a href="#top" class="nav__logo"><span class="nav__logo-text" data-text="JADON_HO">JADON_HO</span><span class="nav__logo-dot">&#9646;</span></a>
+    <a href="#top" class="nav__logo"><span class="nav__logo-text">JADON HO</span></a>
     <div class="nav__links">
       <a href="#origin" class="nav__link" style="--nav-hover: var(--green-300)">Origin</a>
       <a href="#blue-team" class="nav__link" style="--nav-hover: var(--blue-300)">Blue team</a>
@@ -1389,7 +1390,6 @@ body.modal-open { overflow: hidden; }
       <a href="#contact" class="nav__link" style="--nav-hover: var(--text-1)">Contact</a>
       <a href="#build" class="nav__link" style="--nav-hover: var(--green-300)">Build log</a>
     </div>
-    <span id="nav-uptime" class="nav__uptime" title="session uptime">T+00:00</span>
   </div>
 </nav>
 
@@ -1409,8 +1409,6 @@ body.modal-open { overflow: hidden; }
 <header id="top" class="hero fx-scanlines">
   <canvas id="hero-canvas" class="hero__canvas"></canvas>
   <div class="hero__inner">
-    <span id="hero-lastlogin" class="hero__lastlogin"></span>
-    <span class="hero__prompt">jadon@sec:~$ whoami</span>
     <h1 class="hero__title"><span id="hero-name" class="decode-text" data-text="JADON HO\nCHEOK CHUN">&nbsp;</span></h1>
     <div class="hero__tagline"><div id="hero-tagline" class="typed-lines"></div></div>
     <div class="hero__badges">
@@ -1422,7 +1420,6 @@ body.modal-open { overflow: hidden; }
       <a href="#blue-team" class="btn btn--solid btn--blue">View certifications</a>
       <a href="#red-team" class="btn btn--outline btn--red">Projects</a>
       <a href="https://tryhackme.com/p/Jadonho0410" class="btn btn--ghost btn--green">TryHackMe profile &#8594;</a>
-      <span class="hand-note">the terminal at the end is real &mdash; go try it</span>
     </div>
     <div class="hero__stats">
       <div data-reveal style="--reveal-delay: 0ms">
@@ -1456,7 +1453,7 @@ body.modal-open { overflow: hidden; }
         </div>
       </div>
     </div>
-    <a href="#origin" class="hero__scroll-cue">&#9660; scroll to decrypt</a>
+    <a href="#origin" class="hero__scroll-cue">&#9660; scroll</a>
   </div>
 </header>
 
@@ -1781,7 +1778,7 @@ body.modal-open { overflow: hidden; }
           <div class="timeline-item__body">
             <span class="timeline-item__year">2024</span>
             <h3 class="timeline-item__title">National School Games — Champion</h3>
-            <div class="timeline-item__text">Badminton, C Division League 3 champion, representing my school. <span class="hand-note hand-note--inline">still one of my proudest days</span></div>
+            <div class="timeline-item__text">Badminton, C Division League 3 champion, representing my school. <span class="timeline-item__note">Still one of my proudest days.</span></div>
           </div>
         </div>
       </div>
@@ -2416,16 +2413,11 @@ window.__PDFS = {"certs/THM-GECER3GFMZ.pdf": "JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC
   function initReveal() {
     var els = document.querySelectorAll('[data-reveal]');
     els.forEach(function (el) {
-      var title = el.querySelector('.section-header__title[data-text]');
       if (reduced) { el.classList.add('is-visible'); return; }
       var obs = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           if (e.isIntersecting) {
             el.classList.add('is-visible');
-            if (title) {
-              title.classList.add('glitch-play');
-              setTimeout(function () { title.classList.remove('glitch-play'); }, 500);
-            }
             obs.disconnect();
           }
         });
@@ -3145,27 +3137,10 @@ window.__PDFS = {"certs/THM-GECER3GFMZ.pdf": "JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC
    * number-key section jumps, and the Konami code.
    * ------------------------------------------------------------------- */
   function initAmbient() {
-    // "last login" — classic shell greeting, uses the visitor's real clock.
-    var ll = document.getElementById('hero-lastlogin');
-    if (ll) {
-      var now = new Date();
-      ll.textContent = 'last login: ' + now.toDateString() + ' ' +
-        String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') +
-        ' on ttys0';
-    }
-
-    // Tab title gets a slow-blinking block cursor.
-    var baseTitle = document.title;
-    var tick = false;
-    setInterval(function () {
-      tick = !tick;
-      document.title = baseTitle + (tick ? ' ▮' : ' ▯');
-    }, 1000);
-
     // Discoverable credit for devtools explorers.
     try {
       console.log(
-        '%cJADON_HO▎ %cdirected & produced by Jadon Ho — engineered with Claude Code, designed in Claude Design. Type `credits` in the on-page console.',
+        '%cJadon Ho %c— Cybersecurity & Digital Forensics. Type `credits` in the on-page console.',
         'color:#2ee66b;font-weight:bold;font-family:monospace;font-size:14px;',
         'color:#9db0cc;font-family:monospace;'
       );
